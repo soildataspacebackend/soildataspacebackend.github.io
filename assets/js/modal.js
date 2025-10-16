@@ -86,7 +86,7 @@ function showModal(noticia, color) {
   const token = localStorage.getItem('token');
   //si no esta logeado, no se muestra
   const deleteNewsButton = document.getElementById('news-link-modal'); // Botón de borrar noticia
-  if (!token) {
+  if (!token&&deleteNewsButton) {
     deleteNewsButton.style.display = 'none';
     deleteNewsButton.setAttribute("disabled", "disabled");
     deleteNewsButton.textContent = '';
