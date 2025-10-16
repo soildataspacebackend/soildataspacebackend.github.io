@@ -56,7 +56,7 @@ function showModal(noticia, color) {
         <p class="text-base sm:text-lg">${noticia.content}</p>
 
         ${noticia.link ? `
-          <a href="${noticia.link}" target="_blank" rel="noopener noreferrer"
+          <a id="news-link-modal"  href="${noticia.link}" target="_blank" rel="noopener noreferrer"
             class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-${color}-600 text-white font-semibold hover:bg-${color}-700 transition">
             ${finalbuttonText} <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
           </a>` : ""}
@@ -71,13 +71,21 @@ function showModal(noticia, color) {
 
     </div>
   `;
-
+  
   document.body.appendChild(modalBg);
   document.body.style.overflow = "hidden";
 
+  //No aparece el botón si no hay enlace
+  const botonVisitar = document.getElementById('news-link-modal');
+  if ((noticia.link == ""||noticia.link == null)&&botonVisitar){
+    botonVisitar.style.display = 'none';
+    botonVisitar.setAttribute("disabled", "disabled");
+    botonVisitar.textContent = '';
+  }
+
   const token = localStorage.getItem('token');
   //si no esta logeado, no se muestra
-  const deleteNewsButton = document.getElementById('delete-news'); // Botón de borrar noticia
+  const deleteNewsButton = document.getElementById('news-link-modal'); // Botón de borrar noticia
   if (!token) {
     deleteNewsButton.style.display = 'none';
     deleteNewsButton.setAttribute("disabled", "disabled");

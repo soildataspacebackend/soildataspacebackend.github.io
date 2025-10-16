@@ -93,6 +93,18 @@ if (newsContainer) {
     var finalbuttonText = n.buttonText;
     if (finalbuttonText == "" || finalbuttonText == null) finalbuttonText = "Visitar";
 
+    //Para que el botón no se vea si no hay link
+    let buttonHtml = ''; 
+    if (n.link && n.link !== "") { 
+        buttonHtml = `
+            <a href="${n.link}" target="_blank" rel="noopener noreferrer"
+              onclick="event.stopPropagation()"
+              class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-${color}-600 text-white text-sm font-semibold hover:bg-${color}-700 transition">
+              ${finalbuttonText} <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </a>
+        `;
+    }
+
     return `
     <article class="group shrink-0 snap-start w-[300px] sm:w-[340px] md:w-[360px] h-[380px] relative rounded-3xl p-1 bg-gradient-to-r from-${color}-500 to-cyan-500 transition-transform duration-300 hover:scale-[1.04]">
       <div class="flex flex-col h-full rounded-[calc(1.5rem-4px)] bg-white/90 backdrop-blur-md overflow-hidden">
@@ -114,11 +126,7 @@ if (newsContainer) {
             </p>
           </div>
           <div class="mt-3">
-            <a href="${n.link}" target="_blank" rel="noopener noreferrer"
-              onclick="event.stopPropagation()"
-              class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-${color}-600 text-white text-sm font-semibold hover:bg-${color}-700 transition">
-              ${finalbuttonText} <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-            </a>
+            ${buttonHtml}
           </div>
         </div>
       </div>
@@ -158,6 +166,9 @@ if (newsContainer) {
         e.preventDefault();
       }
     }, { passive: false });
+
+
+
   }
 
   
