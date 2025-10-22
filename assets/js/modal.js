@@ -35,41 +35,62 @@ function showModal(noticia, color) {
 
   // Modal adaptado al estilo del carrusel
   modalBg.innerHTML = `
-    <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-3xl sm:max-w-4xl md:max-w-5xl overflow-hidden animate-fadeIn flex flex-col h-auto sm:h-[85vh]">
-      
-      <!-- Botón cerrar -->
-      <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-3xl font-bold leading-none z-10" id="close-modal">&times;</button>
+<div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-3xl sm:max-w-4xl md:max-w-5xl overflow-hidden animate-fadeIn flex flex-col h-auto sm:h-[85vh]">
 
-      <!-- Imagen superior -->
-      <div class="flex-shrink-0 h-64 overflow-hidden relative">
-        <img src="${finalImage}" alt="${noticia.title}" class="w-full h-full object-cover object-center transition-transform duration-300">
-        <span class="absolute top-3 left-3 inline-flex items-center gap-1 px-3 py-1 rounded-full text-[12px] font-semibold bg-white/90 text-${color}-700 shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-${color}-500 animate-ping"></span> ${noticia.category}
-        </span>
-      </div>
+  <!-- Botón cerrar -->
+  <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-3xl font-bold leading-none z-10" id="close-modal">&times;</button>
 
-      <!-- Contenido scrolleable -->
-      <div class="flex-grow overflow-y-auto p-6 sm:p-8 space-y-4 text-gray-700 leading-relaxed">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-${color}-700">${noticia.title}</h2>
-        <p class="text-sm text-gray-500">${noticia.date} | ${noticia.author}</p>
-        <p class="text-base sm:text-lg">${noticia.description}</p>
-        <p class="text-base sm:text-lg">${noticia.content}</p>
+  <!-- Imagen superior sin padding -->
+  <div class="flex-shrink-0 h-80 sm:h-96 md:h-[400px] overflow-hidden relative -mt-0">
+    <img 
+      src="${finalImage}" 
+      alt="${noticia.title}" 
+      class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105 brightness-105 contrast-110"
+    >
+    <span class="absolute top-3 left-3 inline-flex items-center gap-1 px-3 py-1 rounded-full text-[12px] font-semibold bg-white/90 text-${color}-700 shadow-sm">
+      <span class="w-2 h-2 rounded-full bg-${color}-500 animate-ping"></span> ${noticia.category}
+    </span>
+  </div>
 
-        ${noticia.link ? `
-          <a id="news-link-modal"  href="${noticia.link}" target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-${color}-600 text-white font-semibold hover:bg-${color}-700 transition">
-            ${finalbuttonText} <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-          </a>` : ""}
-      </div>
+<!-- Contenido scrolleable -->
+<div class="flex-grow overflow-y-auto p-6 sm:p-8 space-y-6 text-gray-700 leading-relaxed font-serif text-justify">
+  <!-- Título -->
+  <h2 class="text-2xl sm:text-3xl font-extrabold text-${color}-700 font-sans mb-2">
+    ${noticia.title}
+  </h2>
 
-      <!-- 🔽 Botón abajo derecha -->
-      <button id="delete-news"
-        class="absolute bottom-4 right-4 px-5 py-2 rounded-lg text-white font-semibold shadow-md 
-        bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 transition">
-        Borrar
-      </button>
+  <!-- Fecha y autor -->
+  <p class="text-sm text-gray-500 mb-4">
+    ${noticia.date} | ${noticia.author}
+  </p>
 
-    </div>
+  <!-- Descripción breve -->
+  <p class="text-base sm:text-lg mb-4">
+    ${noticia.description}
+  </p>
+
+  <!-- Contenido principal -->
+  <p class="text-base sm:text-lg mb-4">
+    ${noticia.content}
+  </p>
+
+  <!-- Enlace opcional -->
+  ${noticia.link ? `
+    <a id="news-link-modal" href="${noticia.link}" target="_blank" rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-${color}-600 text-white font-semibold hover:bg-${color}-700 transition">
+      ${finalbuttonText} <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+    </a>` : ""}
+</div>
+
+
+  <!-- 🔽 Botón abajo derecha -->
+  <button id="delete-news"
+    class="absolute bottom-4 right-4 px-5 py-2 rounded-lg text-white font-semibold shadow-md 
+    bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 transition">
+    Borrar
+  </button>
+</div>
+
   `;
   
   document.body.appendChild(modalBg);

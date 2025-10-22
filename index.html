@@ -195,20 +195,23 @@
 
 
 
+<!--  Sección principal de noticias -->
 <section class="relative w-full max-w-7xl mx-auto px-4 py-5">
-  <!-- Contenedor principal -->
   <div class="relative mt-5">
     <div class="header-noticias">
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-emerald-700">Últimas Noticias</h2><button id="open-create-news-modal" class="ml-4 inline-flex items-center justify-center px-4 py-2 sm:px-5 sm:py-1 text-sm font-semibold text-white bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
->Crear Noticia</button>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-emerald-700">Últimas Noticias</h2>
+      <button id="open-create-news-modal"
+        class="ml-4 inline-flex items-center justify-center px-4 py-2 sm:px-5 sm:py-1 text-sm font-semibold text-white bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+        Crear Noticia
+      </button>
     </div>
-    <!-- Aquí se generarán las noticias dinámicamente -->
-    <div id="newsContainer"
-      class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-    </div>
+
+    <!-- Contenedor de las noticias renderizadas dinámicamente -->
+    <div id="newsContainer" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr"></div>
   </div>
 </section>
 
+<!-- Carrusel horizontal -->
 <section id="news" class="py-5 sm:py-5 bg-white relative">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -222,7 +225,8 @@
 
       <!-- Contenedor del carrusel -->
       <div id="news-scroller"
-        class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 hide-scrollbar">
+        class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 hide-scrollbar will-change-transform">
+        <!-- 🔹 Aquí se insertan las tarjetas dinámicamente -->
         <div id="news-container" class="flex gap-6 px-1 snap-x snap-mandatory py-10"></div>
       </div>
 
@@ -235,6 +239,7 @@
     </div>
   </div>
 </section>
+
 
   <section id="project" class="py-16 sm:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -573,9 +578,9 @@
           <p class="text-gray-400 mb-5 sm:mb-6 text-sm sm:text-base">Ecosistema soberano de datos del suelo alineado con
             Gaia-X, transformando la gestión del suelo en Andalucía y Castilla y León.</p>
           <div class="flex space-x-4 text-gray-400 text-lg">
-            <a href="#" class="hover:text-white" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#" class="hover:text-white" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="#" class="hover:text-white" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/company/soil-data-space" class="hover:text-white" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/soildataspace" class="hover:text-white" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/SoilDataSpace" class="hover:text-white" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
           </div>
         </div>
 

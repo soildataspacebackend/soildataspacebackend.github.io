@@ -55,123 +55,129 @@
       `).join('');
     }
 
-  /* --- Apartado de noticias --- */
-  var news = [];
+/* -------------------------------------------------
+   📰 CONFIGURACIÓN Y CARGA DE NOTICIAS
+--------------------------------------------------- */
 
-  function addNewsItem(newNewsItem) {
-      news.unshift(NewsItem);
-  }
+var news = [];
 
-  /* --- Render dinámico --- */
+// Añadir una nueva noticia al principio del array
+function addNewsItem(newNewsItem) {
+  news.unshift(newNewsItem);
+}
 
-  // Lista de colores a usar en el carrousel
-  const color_list =  [
-      "emerald", 
-      "violet", 
-      "amber",   
-      "fuchsia", 
-      "teal",    
-      "rose"    
-  ];
+// Colores usados para el gradiente de cada tarjeta
+const color_list = [
+  "emerald",
+  "violet",
+  "amber",
+  "fuchsia",
+  "teal",
+  "rose"
+];
 
-//pilla el mnodulo del número de la lista del item actual
-
-/* --- Render dinámico --- */
+// Referencia al contenedor donde se insertarán las noticias
 const newsContainer = document.getElementById('news-container');
+
 if (newsContainer) {
-  
-   const createNewsItem = (n, index) => { 
 
-    var color = color_list[index%color_list.length];
+  // 🔸 Función para crear la estructura HTML de una noticia
+  const createNewsItem = (n, index) => {
+    const color = color_list[index % color_list.length];
+    const finalImage = n.image || "assets/images/hero.png";
+    const finalbuttonText = n.buttonText || "Visitar";
 
-    //Imagen y texto del boton por defecto
-    var finalImage = n.image;
-    
-    if (finalImage == "") {
-      finalImage = "assets/images/hero.png";
-    }
-    var finalbuttonText = n.buttonText;
-    if (finalbuttonText == "" || finalbuttonText == null) finalbuttonText = "Visitar";
-
-    //Para que el botón no se vea si no hay link
-    let buttonHtml = ''; 
-    if (n.link && n.link !== "") { 
-        buttonHtml = `
-            <a href="${n.link}" target="_blank" rel="noopener noreferrer"
-              onclick="event.stopPropagation()"
-              class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-${color}-600 text-white text-sm font-semibold hover:bg-${color}-700 transition">
-              ${finalbuttonText} <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-            </a>
-        `;
+    // Si no hay link, no muestra el botón
+    let buttonHtml = '';
+    if (n.link && n.link !== "") {
+      buttonHtml = `
+        <a href="${n.link}" target="_blank" rel="noopener noreferrer"
+          onclick="event.stopPropagation()"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-${color}-600 text-white text-sm font-semibold hover:bg-${color}-700 transition">
+          ${finalbuttonText} <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        </a>
+      `;
     }
 
+    // Devuelve la tarjeta de noticia completa
     return `
-    <article class="group shrink-0 snap-start w-[300px] sm:w-[340px] md:w-[360px] h-[380px] relative rounded-3xl p-1 bg-gradient-to-r from-${color}-500 to-cyan-500 transition-transform duration-300 hover:scale-[1.04]">
-      <div class="flex flex-col h-full rounded-[calc(1.5rem-4px)] bg-white/90 backdrop-blur-md overflow-hidden">
-        
-        <div class="relative flex-shrink-0 h-40 overflow-hidden">
+    <article class="group shrink-0 snap-start w-[420px] sm:w-[460px] md:w-[500px] relative rounded-3xl p-1 bg-gradient-to-r from-${color}-500 to-cyan-500 transition-transform duration-300 hover:scale-[1.04] transform-gpu hover:overscroll-contain flex flex-col">
+      <div class="flex flex-col flex-1 rounded-[calc(1.5rem-4px)] bg-white/95 backdrop-blur-md shadow-lg overflow-hidden">
+
+        <!-- Imagen -->
+        <div class="relative h-56 overflow-hidden flex-shrink-0">
           <img src="${finalImage}" alt="${n.title}" class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110" />
-          <span class="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-white/90 text-${color}-700 shadow-sm">
+          <span class="absolute top-3 left-3 inline-flex items-center gap-1 px-3 py-1 rounded-full text-[13px] font-semibold bg-white/90 text-${color}-700 shadow-sm">
             <span class="w-2 h-2 rounded-full bg-${color}-500 animate-ping"></span> ${n.category}
           </span>
         </div>
 
-        <div class="flex flex-col justify-between p-4 flex-grow">
-          <div>
-            <h3 class="text-base sm:text-lg font-extrabold leading-snug bg-gradient-to-r from-${color}-700 to-cyan-700 bg-clip-text text-transparent truncate">
+        <!-- Contenido -->
+        <div class="flex flex-col justify-between p-6 flex-1">
+          <div class="flex-1">
+            <h3 class="text-xl sm:text-2xl font-extrabold leading-snug bg-gradient-to-r from-${color}-700 to-cyan-700 bg-clip-text text-transparent mb-2">
               ${n.title}
             </h3>
-            <p class="text-gray-700 text-sm mt-1 overflow-hidden text-ellipsis line-clamp-3">
+            <p class="text-gray-700 text-lg sm:text-xl leading-relaxed whitespace-pre-line">
               ${n.description}
             </p>
           </div>
-          <div class="mt-3">
+          <div class="mt-5">
             ${buttonHtml}
           </div>
         </div>
       </div>
     </article>
-  `;
-  }
+    `;
+  };
 
-  fetch(urlBase+"/api/v1/news/all")
-  .then(response => {
-    if (!response.ok) throw new Error('Usuario no encontrado');
-    return response.json();
+  // 🔹 Llamada al backend para obtener las noticias
+  fetch(urlBase + "/api/v1/news/all")
+    .then(response => {
+      if (!response.ok) throw new Error('Noticias no encontradas');
+      return response.json();
     })
-  .then( data => {
-    news = data.news; 
-    newsContainer.innerHTML = news.map(createNewsItem).join('');
+    .then(data => {
+      news = data.news;
+      newsContainer.innerHTML = news.map(createNewsItem).join('');
 
-    // Inicializa los eventos de clic para abrir el modal en las noticias recién creadas.
-    initNewsModal(news, color_list, 'news-container');
-    });
-  }
-
-  /* --- Navegación del carrusel --- */
-  const newsScroller = document.getElementById('news-scroller');
-  if (newsScroller) {
-    const step = () => Math.max(320, newsScroller.clientWidth * 0.75);
-
-    document.querySelectorAll('#news [data-dir]').forEach(btn => {
-      btn.addEventListener('click', () =>
-        newsScroller.scrollBy({ left: (+btn.dataset.dir) * step(), behavior: 'smooth' })
-      );
-    });
-
-    // Desplazamiento con rueda del ratón
-    newsScroller.addEventListener('wheel', e => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        newsScroller.scrollLeft += e.deltaY;
-        e.preventDefault();
+      // Inicializa modales si existe la función
+      if (typeof initNewsModal === 'function') {
+        initNewsModal(news, color_list, 'news-container');
       }
-    }, { passive: false });
+    })
+    .catch(error => console.error('Error cargando noticias:', error));
+}
 
+/* -------------------------------------------------
+   🧭 NAVEGACIÓN DEL CARRUSEL
+--------------------------------------------------- */
 
+const newsScroller = document.getElementById('news-scroller');
 
-  }
+if (newsScroller) {
+  // Desplazamiento con botones
+  const step = () => 480;
 
-  
+  document.querySelectorAll('#news [data-dir]').forEach(btn => {
+    btn.addEventListener('click', () =>
+      newsScroller.scrollBy({ left: (+btn.dataset.dir) * step(), behavior: 'smooth' })
+    );
+  });
+
+  // 🚀 Scroll natural con rueda o touchpad
+  newsScroller.addEventListener('wheel', e => {
+    const isVertical = Math.abs(e.deltaY) > Math.abs(e.deltaX);
+
+    // Si el scroll es vertical (rueda normal) → deja pasar el evento
+    if (isVertical) return;
+
+    // Si el scroll es horizontal (touchpad o Shift+rueda) → mueve el carrusel
+    e.preventDefault();
+    newsScroller.scrollLeft += e.deltaX || e.deltaY;
+  }, { passive: false });
+}
+
 
   // ------------- Modal de Login -------------
         const loginBtnHeader = document.getElementById('loginBtnHeader'); // Botón "Iniciar Sesión / Cerrar Sesión"
@@ -369,6 +375,21 @@ if (newsContainer) {
             // Estado inicial
             updateFades();
         }
+
+  const menuBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const menuIcon = document.getElementById("menuIcon");
+  const closeIcon = document.getElementById("closeIcon");
+
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener("click", () => {
+      const isOpen = !mobileMenu.classList.contains("hidden");
+      mobileMenu.classList.toggle("hidden", isOpen);
+      menuIcon.classList.toggle("hidden", !isOpen);
+      closeIcon.classList.toggle("hidden", isOpen);
+    });
+  }
+
 
 })();
 
