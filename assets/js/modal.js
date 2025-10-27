@@ -70,9 +70,9 @@ function showModal(noticia, color) {
   </p>
 
   <!-- Contenido principal -->
-  <p class="text-base sm:text-lg mb-4">
+  <div class="text-base sm:text-lg" style="white-space: pre-line">
     ${noticia.content}
-  </p>
+  </div>
 
   <!-- Enlace opcional -->
   ${noticia.link ? `

@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cleanedText = cleanedText.replace(urlRegex, '');
 
         //HTML y CSS
-        const keyCharacters = /[<>&"'\//]/g; 
+        const keyCharacters = /[<>&\//]/g; 
         const keyWords = /(<script|javascript:|eval\(|onload=|onerror=|onmouseover=|document\.|window\.|alert\(|prompt\(|confirm\()/i;
 
         // Comprueba ambas expresiones regulares
