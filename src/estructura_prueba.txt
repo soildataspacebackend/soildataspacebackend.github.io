@@ -7,7 +7,7 @@ app/
 │ │ ├── commands.ts
 │ │ └── e2e.ts
 │ └── tests/
-│ └── login.e2e.spec.ts lol
+│ └── login.e2e.spec.ts lol otro
 ├── src/
 │ ├── assets/
 │ │ ├── icons/
