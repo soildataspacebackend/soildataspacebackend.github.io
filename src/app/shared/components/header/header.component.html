@@ -1,0 +1,57 @@
+<header class="bg-white/90 backdrop-blur shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+    	<div class="flex justify-between items-center h-14 sm:h-16">
+			<a href="#home" class="flex items-center group" aria-label="Soil DataSpace home">
+				<div>
+					<h1 class="text-lg sm:text-xl font-bold text-gray-900 leading-none">Soil DataSpace</h1>
+					<p class="text-[11px] sm:text-xs text-gray-500">Espacio de datos de suelos</p>
+				</div>
+			</a>
+
+			<nav class="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Principal">
+				<a [routerLink]="[]" fragment="home" class="nav-link text-sm font-medium text-blue-600">Inicio</a>
+				<a [routerLink]="[]" fragment="project" class="nav-link text-sm font-medium text-gray-700 hover:text-blue-600">Proyecto</a>
+				<a [routerLink]="[]" fragment="useCases" class="nav-link text-sm font-medium text-gray-700 hover:text-blue-600">Casos de Uso</a>
+				<a [routerLink]="[]" fragment="technology" class="nav-link text-sm font-medium text-gray-700 hover:text-blue-600">Tecnología</a>
+				<a [routerLink]="[]" fragment="partners" class="nav-link text-sm font-medium text-gray-700 hover:text-blue-600">Socios</a>
+
+				<!-- Botón de Login y gestion de los modales-->
+				<app-login></app-login>
+			</nav>
+
+			 <!-- Botón hamburguesa -->
+			<button
+				(click)="toggleMenu()"
+				class="md:hidden inline-flex items-center justify-center p-2 rounded hover:bg-gray-100 transition"
+				aria-label="Abrir menú"
+			>
+				<svg *ngIf="!menuAbierto" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+					d="M4 6h16M4 12h16M4 18h16" />
+				</svg>
+				<svg *ngIf="menuAbierto" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+					d="M6 18L18 6M6 6l12 12" />
+				</svg>
+      		</button>
+    	</div>
+  	</div>
+
+  	<!-- Menú móvil -->
+	<div
+		*ngIf="menuAbierto"
+		class="md:hidden bg-white/95 backdrop-blur border-t shadow-sm"
+	>
+		<nav class="flex flex-col px-4 py-3 space-y-3 text-sm" aria-label="Principal móvil">
+			<a (click)="cerrarMenu()" [routerLink]="[]" fragment="home" class="text-blue-600 font-medium">Inicio</a>
+			<a (click)="cerrarMenu()" [routerLink]="[]" fragment="project" class="text-gray-700 hover:text-blue-600">Proyecto</a>
+			<a (click)="cerrarMenu()" [routerLink]="[]" fragment="useCases" class="text-gray-700 hover:text-blue-600">Casos de Uso</a>
+			<a (click)="cerrarMenu()" [routerLink]="[]" fragment="technology" class="text-gray-700 hover:text-blue-600">Tecnología</a>
+			<a (click)="cerrarMenu()" [routerLink]="[]" fragment="partners" class="text-gray-700 hover:text-blue-600">Socios</a>
+
+			<div class="pt-2 border-t">
+				<app-login></app-login>
+			</div>
+		</nav>
+	</div>
+</header>
